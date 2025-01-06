@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Plus</title>
+		<script
+			src="https://code.jquery.com/jquery-3.7.1.min.js"
+			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+			crossorigin="anonymous"
+		></script>
+	</head>
+
+	<body>
+		<form id="plusForm">
+			<label>A <input type="number" name="variableA" value="" /></label>
+			<label>B <input type="number" name="variableB" value="" /></label>
+			<button type="submit">Plus</button>
+		</form>
+
+		<script>
+			$("#plusForm").submit(function (event) {
+				event.preventDefault();
+				$.ajax({
+					type: "POST",
+					url: "http://localhost:3030/plus",
+
+					data: $(this).serialize(),
+					success: function (data) {
+						if (data.success) {
+							alert(data.result);
+						}
+					},
+					error: function (xhr, status, error) {
+						alert(xhr.responseJSON.message);
+					},
+				});
+			});
+		</script>
+	</body>
+</html>
